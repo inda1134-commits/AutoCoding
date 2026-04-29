@@ -6,6 +6,24 @@ from langchain_classic.agents import AgentExecutor
 from langchain_classic.agents import create_tool_calling_agent
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
+DEFAULT_SESSION = {
+    "model_provider": "GPT (OpenAI)",
+    "api_key": "",
+    "total_tokens": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "target_dir": "",
+    "pending_changes": {},
+    "commit_step": False,
+}
+
+for key, value in DEFAULT_SESSION.items():
+    if key not in st.session_state:
+        st.session_state[key] = value
+
+model_provider = st.session_state.model_provider
+api_key = st.session_state.api_key
+target_dir = st.session_state.target_dir
 
 @tool
 def create_folder(folder_path: str) -> str:
