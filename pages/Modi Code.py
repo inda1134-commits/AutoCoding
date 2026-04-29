@@ -68,7 +68,9 @@ with st.sidebar:
         value=st.session_state.target_dir
     )
 
-    if st.button("경로 저장"):
-        if os.path.exists(target_dir_input):
-            st.session_state.target_dir = target_dir_input
-    st.write(result["output"])
+if st.button("경로 저장"):
+    if os.path.exists(target_dir_input):
+        st.session_state.target_dir = target_dir_input
+        st.success("경로 저장 완료")
+    else:
+        st.error("존재하지 않는 경로입니다.")
