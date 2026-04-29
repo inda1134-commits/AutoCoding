@@ -1,4 +1,5 @@
 import streamlit as st
+from utilitys import render_sidebar
 
 st.set_page_config(
     page_title="AI Code Editor + Git Manager",
