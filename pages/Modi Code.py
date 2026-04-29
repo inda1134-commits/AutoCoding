@@ -1,5 +1,6 @@
 import streamlit as st
 from contextlib import nullcontext
+import os
 
 from langchain_classic.agents import AgentExecutor
 from langchain_classic.agents import create_tool_calling_agent
