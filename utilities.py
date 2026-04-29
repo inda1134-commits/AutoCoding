@@ -34,7 +34,7 @@ def render_sidebar():
             f"Output: {st.session_state.completion_tokens}"
         )
 
-        st.divider()
+        st.divider() 
 
         model_list = [
             "GPT (OpenAI)",
@@ -62,13 +62,14 @@ def render_sidebar():
 
         target_dir_input = st.text_input(
             "작업 폴더",
-            value=st.session_state.get("target_dir", ""),
+            value=st.session_state.target_dir, # 직접 참조
             key="sidebar_target_dir"
         )
 
-        if st.button("경로 저장", key="save_target_dir"):
+        if st.button("경로 저장"):
+            # 버튼 클릭 시 확실하게 저장
             st.session_state.target_dir = target_dir_input
-            st.success("작업 폴더 저장 완료")
+            st.success("경로가 저장되었습니다.")
 
         if st.session_state.get("target_dir"):
             st.info(f"📂 {st.session_state.target_dir}")
