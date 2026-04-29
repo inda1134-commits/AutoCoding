@@ -1,15 +1,20 @@
 import streamlit as st
 
+st.set_page_config(
+    page_title="AI Code Editor + Git Manager",
+    layout="wide"
+)
+
 # ============================================================
 # 공통 Session State 초기화
 # ============================================================
 DEFAULT_SESSION = {
     "model_provider": "GPT (OpenAI)",
     "api_key": "",
+    "target_dir": "",
     "total_tokens": 0,
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "target_dir": "",
     "pending_changes": {},
     "commit_step": False,
 }
@@ -19,15 +24,8 @@ for key, value in DEFAULT_SESSION.items():
         st.session_state[key] = value
 
 
-st.set_page_config(
-    page_title="AI Code Editor + Git Manager",
-    layout="wide"
-)
-
-st.title("🤖 AI 코드 에디터 & Git 매니저")
-
 # ============================================================
-# 공통 Sidebar
+# Sidebar (항상 유지)
 # ============================================================
 with st.sidebar:
     st.header("📊 Usage")
@@ -40,24 +38,24 @@ with st.sidebar:
 
     st.divider()
 
+    model_list = [
+        "GPT (OpenAI)",
+        "Claude (Anthropic)",
+        "Gemini (Google)",
+    ]
+
     st.session_state.model_provider = st.selectbox(
         "LLM 선택",
-        [
-            "GPT (OpenAI)",
-            "Claude (Anthropic)",
-            "Gemini (Google)",
-        ],
-        index=[
-            "GPT (OpenAI)",
-            "Claude (Anthropic)",
-            "Gemini (Google)",
-        ].index(st.session_state.model_provider)
+        model_list,
+        index=model_list.index(st.session_state.model_provider),
+        key="sidebar_model_provider"
     )
 
     st.session_state.api_key = st.text_input(
         "API Key",
         type="password",
-        value=st.session_state.api_key
+        value=st.session_state.api_key,
+        key="sidebar_api_key"
     )
 
     st.divider()
@@ -65,15 +63,12 @@ with st.sidebar:
     target_dir_input = st.text_input(
         "작업 폴더",
         value=st.session_state.target_dir,
-        placeholder="예: C:/Users/yourname/project"
+        key="sidebar_target_dir"
     )
 
-    if st.button("경로 저장"):
-        if target_dir_input:
-            st.session_state.target_dir = target_dir_input
-            st.success("작업 폴더 저장 완료")
-        else:
-            st.error("경로를 입력해주세요.")
+    if st.button("경로 저장", key="save_target_dir"):
+        st.session_state.target_dir = target_dir_input
+        st.success("작업 폴더 저장 완료")
 
     if st.session_state.target_dir:
         st.info(f"📂 {st.session_state.target_dir}")
