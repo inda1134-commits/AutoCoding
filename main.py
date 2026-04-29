@@ -1,4 +1,17 @@
 import streamlit as st
+
+# ============================================================
+# 공통 Session State 초기화
+# ============================================================
+DEFAULT_SESSION = {
+    "model_provider": "GPT (OpenAI)",
+    "api_key": "",
+    "total_tokens": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "target_dir": "",
+    "pending_changes": {},
+    "commit_step": False,
 }
 
 for key, value in DEFAULT_SESSION.items():
@@ -12,7 +25,6 @@ st.set_page_config(
 )
 
 st.title("🤖 AI 코드 에디터 & Git 매니저")
-
 
 # ============================================================
 # 공통 Sidebar
