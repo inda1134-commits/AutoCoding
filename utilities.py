@@ -129,7 +129,7 @@ def write_file_content(file_path: str, content: str) -> str:
 def list_project_files(directory_path: str) -> str:
     """프로젝트 전체 파일 목록 반환"""
     if not os.path.exists(directory_path):
-        return "오류: 폴더가 존재하지 않습니다."
+        return f"오류: '{directory_path}' 경로가 존재하지 않습니다. 절대 경로를 사용해 주세요."
 
     collected = []
 
