@@ -4,7 +4,7 @@ from contextlib import nullcontext
 from langchain_classic.agents import AgentExecutor
 from langchain_classic.agents import create_tool_calling_agent
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.callbacks import get_openai_callback
+from langchain_community.callbacks.manager import get_openai_callback
 
 from utilities import (
     init_session,
